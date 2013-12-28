@@ -9,3 +9,9 @@
 * move PPM generation out of Main
 
 * parse and read file representation of scenes
+
+* make a mkCamera function
+
+* make Cameras have a direction so the same scene can be viewed from
+   different angles.
+
