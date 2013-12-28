@@ -3,7 +3,7 @@ module Surface where
 import Rays
 import Vectors
 
-type Color = (Int, Int, Int)
+type Color = (Double, Double, Double)
 
 data Surface = Sphere Point Double Color
 
