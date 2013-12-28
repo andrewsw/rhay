@@ -16,8 +16,8 @@ radius (Sphere _ r _) = r
 color :: Surface -> Color
 color (Sphere _ _ cl) = cl
 
-intersect :: Surface -> Ray -> Maybe Point
-intersect (Sphere c r _) (Ray o dir) =
+intersect :: Ray -> Surface -> Maybe Point
+intersect (Ray o dir) (Sphere c r _) =
     if disc < 0
     then Nothing
     else (Just $ o + ((v - dr) `mult` dir))
