@@ -15,6 +15,7 @@ mkDirection = normalize . fromList
 
 -- Ray Origin Direction
 data Ray = Ray Point Direction
+           deriving (Show)
 
 origin :: Ray -> Point
 origin (Ray p _) = p

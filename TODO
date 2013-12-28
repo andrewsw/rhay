@@ -1,10 +1,3 @@
-
-* create a Camera
-
-   it should understand where it's located, its focal length, the size of
-   its screen etc. It should also produce the rays it needs to draw
-   the image so the renderer can ask the camera(s) for the rays.
-
 * convert to floating point colors
 
    convert to an internal representation [0.0-1.0] instead of [0-255] to
