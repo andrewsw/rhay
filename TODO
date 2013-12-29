@@ -1,15 +1,11 @@
-* implement shading
-- implement occlusion of light source
-
-- implement multiple light sources
-
-- implement colored lights and color mixing
-
 * move PPM generation out of Main
 
 * parse and read file representation of scenes
 
-* make a mkCamera function
+* implement shading
+- implement multiple light sources
+
+- implement colored lights and color mixing
 
 * make Cameras have a direction so the same scene can be viewed from
    different angles.

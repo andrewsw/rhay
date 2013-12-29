@@ -20,5 +20,5 @@ renderPoint (Scene ss bg l) ray = fromJust $ fromMaybe (Just bg) $ find (Nothing
     traceIntersections :: Surface -> Maybe Color
     traceIntersections s = case ray `intersect` s of
       Nothing -> Nothing
-      Just p  -> Just $ color s l p
+      Just p  -> Just $ color s l p ss
 

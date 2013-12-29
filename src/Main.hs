@@ -9,12 +9,12 @@ main :: IO ()
 main = writeFile "test1.ppm" ppm
   where
     scene = Scene [ Sphere (mkPoint [1000,    0,    0]) 50.0 (1.0, 0.0, 0.0)
-                  , Sphere (mkPoint [1000,  100,   50]) 50.0 (1.0, 1.0, 0.0)
+                  , Sphere (mkPoint [1000,  150,  -50]) 50.0 (1.0, 1.0, 0.0)
                   , Sphere (mkPoint [1000,  200,  100]) 50.0 (1.0, 1.0, 1.0)
                   , Sphere (mkPoint [1000,  300,  150]) 50.0 (1.0, 0.0, 1.0)
                   , Sphere (mkPoint [1000,  400,  200]) 50.0 (0.0, 1.0, 1.0)
                   , Sphere (mkPoint [1000,  500,  250]) 50.0 (0.0, 0.0, 1.0)
-                  ] (0.0, 0.0, 0.0) $ mkPoint [1000, -400, 200]
+                  ] (0.0, 0.0, 0.0) $ mkPoint [1000, -400, 0]
     image = renderScene scene defaultCamera
     ppm = makePPM image
 
