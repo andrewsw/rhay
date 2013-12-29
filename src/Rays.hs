@@ -13,6 +13,9 @@ type Direction = Vector Double
 mkDirection :: [Double] -> Point
 mkDirection = normalize . fromList
 
+pointsToDirection :: Point -> Point -> Direction
+pointsToDirection p1 p2 = normalize (p2 - p1)
+
 -- Ray Origin Direction
 data Ray = Ray Point Direction
            deriving (Show)

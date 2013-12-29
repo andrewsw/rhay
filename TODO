@@ -1,5 +1,9 @@
 * implement shading
-- first basic shading using cosine shading w/ ambient coefficient
+- implement occlusion of light source
+
+- implement multiple light sources
+
+- implement colored lights and color mixing
 
 * move PPM generation out of Main
 

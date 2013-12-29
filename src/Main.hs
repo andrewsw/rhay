@@ -8,13 +8,13 @@ import Scene
 main :: IO ()
 main = writeFile "test1.ppm" ppm
   where
-    scene = Scene [ Sphere (mkPoint [2000,    0,    0]) 25.0 (1.0, 0.0, 0.0)
-                  , Sphere (mkPoint [2000,  100,    0]) 25.0 (1.0, 0.0, 0.0)
-                  , Sphere (mkPoint [2000,  200,  200]) 25.0 (1.0, 0.0, 0.0)
-                  , Sphere (mkPoint [2000,  300,  300]) 25.0 (1.0, 0.0, 0.0)
-                  , Sphere (mkPoint [2000,  400,  400]) 25.0 (1.0, 0.0, 0.0)
-                  , Sphere (mkPoint [2000,  500,  500]) 25.0 (1.0, 0.0, 0.0)
-                  ]
+    scene = Scene [ Sphere (mkPoint [1000,    0,    0]) 50.0 (1.0, 0.0, 0.0)
+                  , Sphere (mkPoint [1000,  100,   50]) 50.0 (1.0, 1.0, 0.0)
+                  , Sphere (mkPoint [1000,  200,  100]) 50.0 (1.0, 1.0, 1.0)
+                  , Sphere (mkPoint [1000,  300,  150]) 50.0 (1.0, 0.0, 1.0)
+                  , Sphere (mkPoint [1000,  400,  200]) 50.0 (0.0, 1.0, 1.0)
+                  , Sphere (mkPoint [1000,  500,  250]) 50.0 (0.0, 0.0, 1.0)
+                  ] (0.0, 0.0, 0.0) $ mkPoint [1000, -400, 200]
     image = renderScene scene defaultCamera
     ppm = makePPM image
 
