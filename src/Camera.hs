@@ -16,6 +16,8 @@ data Camera = Camera { focalLength :: Double
 defaultCamera :: Camera
 defaultCamera = mkCamera 800 600 2.0 (mkPoint [ 0, 0, 0 ])
 
+shortCamera = mkCamera 800 600 1.0 (mkPoint [ 0, 0, 0 ])
+
 mkCamera :: Int -> Int -> Double -> Point -> Camera
 mkCamera w h f o = Camera f w h rs
   where
@@ -25,7 +27,7 @@ mkCamera w h f o = Camera f w h rs
                    , x <- [(w - 1), (w - 2)..0]
                    ]
     mkRay (x,y) = Ray o . normalize $
-                  V.fromList [ 1.0
+                  V.fromList [ f
                              , ((x / fromIntegral w) - 0.5) -- scaled to [ -0.5,0.5 ]
                              , ((y / fromIntegral h) - 0.5) / aR -- scaled and aspect adjusted
                              ]

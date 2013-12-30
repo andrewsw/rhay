@@ -1,3 +1,4 @@
+
 * move PPM generation out of Main
 
 * parse and read file representation of scenes
