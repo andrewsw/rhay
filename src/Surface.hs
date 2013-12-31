@@ -3,7 +3,7 @@ module Surface where
 import Rays
 import Vectors
 
-import Data.Maybe (isJust)
+import Data.Maybe
 
 type Color = (Double, Double, Double)
 
@@ -36,11 +36,23 @@ color this@(Plane n _ (r,g,b)) ss ls p =
       shade = cosShade p norm $ filter (/= this) ss
 
 
+-- fix this to only check for intersections between origin and the light source. this will keep planes from occluding each other.
 cosShade :: Point -> Point -> [Surface] -> Point -> Double
-cosShade o norm ss lv = if shadeFactor < 0 || (any (isJust . ((Ray o lv) `intersect`)) ss)
+cosShade o norm ss lv = if shadeFactor < 0 || occluded -- (any (isJust . ((Ray o lv) `intersect`)) ss)
                    then 0.0
                    else shadeFactor
                        where shadeFactor = lv `dot` norm
+                             intersections :: [Point]
+                             intersections = mapMaybe ((Ray o lv) `intersect`) ss
+                             positives :: [Point]
+                             positives = filter (\p -> (dot (p - o) (p - o))> 0.0) intersections
+                             distances :: [Double]
+                             distances = map (\p -> sqrt $ dot (p - o) (p - o)) positives
+                             distanceToLight :: Double
+                             distanceToLight = sqrt $ dot (lv - o) (lv - o)
+                             occluded = case filter (< distanceToLight) distances of
+                               [] -> False
+                               _ -> True
 
 intersect :: Ray -> Surface -> Maybe Point
 intersect (Ray o dir) (Sphere c r _) =
@@ -52,7 +64,7 @@ intersect (Ray o dir) (Sphere c r _) =
                 v = dot oc dir
                 oc = c - o -- gives a vector that is the same direction and magnitude as oc
 intersect (Ray o dir) (Plane n d _) =
-  if abs vd <= 0.0001 || t < 0
+  if abs vd <= 0.000001 || t < 0
   then Nothing
   else (Just $ o + (t `mult` dir))
        where

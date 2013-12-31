@@ -11,6 +11,7 @@ import Data.Ord  (comparing)
 
 -- A scene has surfaces, a background color and lights.
 data Scene = Scene [ Surface ] Color [ Point ]
+             deriving (Show)
 
 data Image = Image Int Int [ Color ]
 
@@ -25,13 +26,13 @@ renderPoint (Scene ss bg ls) ray@(Ray o _) = case intersections of
   where
     firstPoint ps = head $ sortBy (comparing (distance o . fst)) ps
 
-    intersections = map fromJust $ filter (Nothing /=) (map traceIntersections ss)
+    intersections = map fromJust $ filter (Nothing /=) (map (traceIntersections ray) ss)
 
-    traceIntersections :: Surface -> Maybe (Point, Surface)
-    traceIntersections s = case ray `intersect` s of
+traceIntersections :: Ray -> Surface -> Maybe (Point, Surface)
+traceIntersections ray s = case ray `intersect` s of
       Nothing -> Nothing
       Just p -> Just (p, s)
 
-    distance :: Point -> Point -> Double
-    distance p1 p2 = sqrt $ p1 `dot` p2
+distance :: Point -> Point -> Double
+distance p1 p2 = mag (p2 - p1)
 

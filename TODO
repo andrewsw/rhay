@@ -4,8 +4,6 @@
 * parse and read file representation of scenes
 
 * implement shading
-- implement multiple light sources
-
 - implement colored lights and color mixing
 
 * make Cameras have a direction so the same scene can be viewed from
