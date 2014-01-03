@@ -23,16 +23,16 @@ radius (Sphere _ r _) = r
 
 color :: Surface -> [Surface] -> [Point] -> Point -> Color
 color (Sphere c _ (r,g,b)) ss ls p =
-    foldl mergeColors (0.0, 0.0, 0.0) $ map (\lv -> (r * shade lv, g * shade lv, b * shade lv)) lVectors
+    foldl mergeColors (0.0, 0.0, 0.0) $ map (\lv -> (r * shade lv, g * shade lv, b * shade lv)) ls --lVectors
     where
       norm = pointsToDirection c p
-      lVectors = map (pointsToDirection p) ls
+--      lVectors = map (pointsToDirection p) ls
       shade = cosShade p norm ss
 color this@(Plane n _ (r,g,b)) ss ls p =
-    foldl mergeColors (0.0, 0.0, 0.0) $ map (\lv -> (r * shade lv, g * shade lv, b * shade lv)) lVectors
+    foldl mergeColors (0.0, 0.0, 0.0) $ map (\lv -> (r * shade lv, g * shade lv, b * shade lv)) ls --lVectors
     where
       norm = n
-      lVectors = map (pointsToDirection p) ls
+--      lVectors = map (pointsToDirection p) ls
       shade = cosShade p norm $ filter (/= this) ss
 
 
@@ -41,15 +41,16 @@ cosShade :: Point -> Point -> [Surface] -> Point -> Double
 cosShade o norm ss lv = if shadeFactor < 0 || occluded -- (any (isJust . ((Ray o lv) `intersect`)) ss)
                    then 0.0
                    else shadeFactor
-                       where shadeFactor = lv `dot` norm
+                       where lightDirection = pointsToDirection o lv
+                             shadeFactor = lightDirection `dot` norm
                              intersections :: [Point]
-                             intersections = mapMaybe ((Ray o lv) `intersect`) ss
+                             intersections = mapMaybe ((Ray o lightDirection) `intersect`) ss
                              positives :: [Point]
                              positives = filter (\p -> (dot (p - o) (p - o))> 0.0) intersections
                              distances :: [Double]
-                             distances = map (\p -> sqrt $ dot (p - o) (p - o)) positives
+                             distances = map (\p -> distance p o) positives
                              distanceToLight :: Double
-                             distanceToLight = sqrt $ dot (lv - o) (lv - o)
+                             distanceToLight =  distance lv o
                              occluded = case filter (< distanceToLight) distances of
                                [] -> False
                                _ -> True

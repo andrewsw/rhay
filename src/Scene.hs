@@ -33,6 +33,4 @@ traceIntersections ray s = case ray `intersect` s of
       Nothing -> Nothing
       Just p -> Just (p, s)
 
-distance :: Point -> Point -> Double
-distance p1 p2 = mag (p2 - p1)
 

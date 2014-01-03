@@ -25,3 +25,6 @@ origin (Ray p _) = p
 
 direction :: Ray -> Direction
 direction (Ray _ d) = d
+
+distance :: Point -> Point -> Double
+distance p1 p2 = mag (p2 - p1)
